@@ -1,6 +1,7 @@
-import React, { VFC } from 'react';
+import React, { useContext, VFC } from 'react';
 import { useSpring } from 'react-spring';
 
+import { ServiceContext } from '../../ServiceContext';
 import * as S from './styled';
 
 type Props = {
@@ -12,6 +13,8 @@ type Props = {
 };
 
 export const Card: VFC<Props> = ({ isSelected, eliminiated, url, onClick }) => {
+  const { state } = useContext(ServiceContext);
+
   const { transform, opacity } = useSpring({
     opacity: isSelected ? 1 : 0,
     transform: `perspective(1200px) rotateX(${isSelected ? 180 : 0}deg)`,
@@ -23,6 +26,7 @@ export const Card: VFC<Props> = ({ isSelected, eliminiated, url, onClick }) => {
       onClick={onClick}
       style={{
         transform: eliminiated ? 'scale(0)' : 'scale(1)',
+        cursor: state.matches('gameLoop') ? 'pointer' : 'default',
       }}
     >
       <S.CardFace

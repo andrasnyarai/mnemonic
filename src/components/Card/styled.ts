@@ -12,7 +12,6 @@ export const CardFace = styled(a.div)`
   position: absolute;
   width: var(--cardSize);
   height: var(--cardSize);
-  cursor: pointer;
   will-change: transform, opacity;
   border-radius: 3px;
   backface-visibility: hidden;
