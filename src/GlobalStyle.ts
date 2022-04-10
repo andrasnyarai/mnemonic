@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
 body {
   margin: 0;
   position: absolute;
@@ -24,7 +27,6 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #f7f7f7;
-  overscroll-behavior: contain;
 }
 
 @media only screen and (min-width: 550px) {
@@ -32,3 +34,4 @@ body {
     --cardSize: 150px;
   }
 }
+`;

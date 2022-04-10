@@ -1,24 +1,20 @@
 import { useMachine } from '@xstate/react';
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { Cards, Players } from './components';
+import { Cards, Loading, Players, Start } from './components';
 import { memoryMachine } from './memoryMachine';
 import { ServiceContext } from './ServiceContext';
 
 export const App = () => {
   const [state, send] = useMachine(memoryMachine);
 
-  useEffect(() => {
-    send('START', { playersCount: 4 });
-  }, []);
-
   if (state.matches('loading')) {
-    return <div>loading...</div>;
+    return <Loading />;
   }
 
   return (
     <ServiceContext.Provider value={{ state, send }}>
-      <Cards />
+      {state.matches('idle') ? <Start /> : <Cards />}
       <Players />
     </ServiceContext.Provider>
   );

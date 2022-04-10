@@ -40,6 +40,13 @@ export type ServiceState = State<
   ResolveTypegenMeta<TypegenDisabled, GameEvent, BaseActionObject, ServiceMap>
 >;
 
+const shuffle = <T>(array: T[]) => {
+  return array
+    .map((value) => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
+};
+
 const fetchCat = async (): Promise<{ url: string; id: string }> => {
   const res = await fetch('https://api.thecatapi.com/v1/images/search?size=small');
   const [{ url, id }] = await res.json();
@@ -47,6 +54,7 @@ const fetchCat = async (): Promise<{ url: string; id: string }> => {
 };
 
 const playerSymbols = ['🦖', '🦒', '🦢', '🦔'];
+const pairOfCards = 9;
 
 export const memoryMachine = createMachine<GameContext, GameEvent, GameTypeState>(
   {
@@ -86,10 +94,7 @@ export const memoryMachine = createMachine<GameContext, GameEvent, GameTypeState
                   url,
                   eliminated: false,
                 }));
-                return [...cards, ...cards]
-                  .map((value) => ({ value, sort: Math.random() }))
-                  .sort((a, b) => a.sort - b.sort)
-                  .map(({ value }) => value);
+                return shuffle([...cards, ...cards]);
               },
             }),
           },
@@ -173,7 +178,7 @@ export const memoryMachine = createMachine<GameContext, GameEvent, GameTypeState
       },
     },
     services: {
-      fetchImages: () => Promise.all([...new Array(9)].map(fetchCat)),
+      fetchImages: () => Promise.all([...new Array(pairOfCards)].map(fetchCat)),
     },
   },
 );

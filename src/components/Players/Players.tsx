@@ -13,8 +13,10 @@ export const Players: VFC = () => {
             key={id}
             style={{
               backgroundColor:
-                state.context.currentPlayerIndex === i ? 'lightgreen' : 'white',
-              height: state.matches('idle') ? `calc(125px + ${points * 50}px)` : '125px',
+                state.context.currentPlayerIndex === i && !state.matches('idle')
+                  ? 'lightgreen'
+                  : 'white',
+              height: state.matches('idle') ? `calc(125px + ${points * 30}px)` : '125px',
               transform:
                 state.context.currentPlayerIndex === i && state.matches('match')
                   ? 'scale(1.5)'
