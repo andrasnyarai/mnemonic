@@ -8,19 +8,17 @@ export const Players: VFC = () => {
   return (
     <S.Wrapper>
       {state.context.players.map(({ id, points }, i) => {
+        const isCurrentPlayer = state.context.currentPlayerIndex === i;
+
         return (
           <S.Player
             key={id}
             style={{
               backgroundColor:
-                state.context.currentPlayerIndex === i && !state.matches('idle')
-                  ? 'lightgreen'
-                  : 'white',
+                isCurrentPlayer && !state.matches('idle') ? 'lightgreen' : 'white',
               height: state.matches('idle') ? `calc(125px + ${points * 30}px)` : '125px',
               transform:
-                state.context.currentPlayerIndex === i && state.matches('match')
-                  ? 'scale(1.5)'
-                  : 'scale(1)',
+                isCurrentPlayer && state.matches('match') ? 'scale(1.5)' : 'scale(1)',
             }}
           >
             <div>{id}</div>
