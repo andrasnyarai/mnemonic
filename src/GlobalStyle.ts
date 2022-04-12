@@ -6,8 +6,9 @@ body {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
   bottom: 0;
+  top: 1px;
+  touch-action: none;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
